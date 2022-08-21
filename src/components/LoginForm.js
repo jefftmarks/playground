@@ -14,7 +14,8 @@ function LoginForm({ setActiveUser }) {
 	}
 
 	function handleLogin(user) {
-		if (user.length === 0) {
+		console.log(user);
+		if (!user) {
 			alert("Username does not exist");
 			setFormData(initializedForm);
 		} else if (formData.password !== user.password) {
@@ -45,6 +46,7 @@ function LoginForm({ setActiveUser }) {
           type="text"
           id="loginUsername"
           name="username"
+					value={formData.username}
 					required
 					onChange={handleChange}
         />
@@ -54,6 +56,7 @@ function LoginForm({ setActiveUser }) {
 				type="password"
 				id="loginPassword"
 				name="password"
+				value={formData.password}
 				required
 				onChange={handleChange}
 			/>
