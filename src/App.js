@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Home from "./components/Home";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import { Route, useHistory } from "react-router-dom";
 
 function App() {
+  const [activeUser, setActiveUser] = useState(null);
+
+  const history = useHistory();
+
+  if (!activeUser) history.push("/login");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>My Site</h1>
+      {activeUser ? <button onClick={() => setActiveUser(null)}>Logout</button> : null}
+      <Route exact path="/">
+        <Home user={activeUser}  />
+      </Route>
+      <Route path="/login" >
+        <LoginForm setActiveUser={setActiveUser}/>
+      </Route>
+      <Route path="/signup" >
+        <SignupForm setActiveUser={setActiveUser}/>
+      </Route>
     </div>
   );
 }
